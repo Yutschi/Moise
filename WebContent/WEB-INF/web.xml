@@ -10,13 +10,12 @@
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
   <servlet>
-    <description></description>
-    <display-name>Gestion_des_erreurs_de_caisse</display-name>
-    <servlet-name>Gestion_des_erreurs_de_caisse</servlet-name>
-    <servlet-class>gestion_err.Gestion_des_erreurs_de_caisse</servlet-class>
+    <display-name>CreationAgent</display-name>
+    <servlet-name>CreationAgent</servlet-name>
+    <servlet-class>servlet.CreationAgent</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>Gestion_des_erreurs_de_caisse</servlet-name>
-    <url-pattern>/Erreurs caisse</url-pattern>
+    <servlet-name>CreationAgent</servlet-name>
+    <url-pattern>/CreationAgent</url-pattern>
   </servlet-mapping>
 </web-app>
