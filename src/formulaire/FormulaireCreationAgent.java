@@ -8,14 +8,16 @@ import Beans.Agent;
 
 public class FormulaireCreationAgent
 {
-	    private static final String CHAMP_NOM       = "nomAgent";
-	    private static final String CHAMP_PRENOM    = "prenomAgent";
-	    private static final String CHAMP_ADRESSE   = "adresseAgent";
-	    private static final String CHAMP_TELEPHONE = "telephoneAgent";
-	    private static final String CHAMP_EMAIL     = "emailAgent";
+	    private static final String CHAMP_NOM  = "nomAgent";
+	    private static final String CHAMP_PRENOM = "prenomAgent";
+	    private static final String CHAMP_PWDAGENT = "pwdAgent";
+	    private static final String CHAMP_CODEAGENT  = "codeAgent";
+	    private static final String CHAMP_CODEAGENCE = "codeAgencd";
+//	    private static final String CHAMP_TYPEAGENT   = "typeAgent"; car imposé par la listebox
+	    private static final String CHAMP_EMAIL = "emailAgent";
 
 	    private String              resultat;
-	    private Map<String, String> erreurs         = new HashMap<String, String>();
+	    private Map<String, String> erreurs  = new HashMap<String, String>();
 
 	    public Map<String, String> getErreurs() {
 	        return erreurs;
@@ -28,8 +30,9 @@ public class FormulaireCreationAgent
 	    public Agent creerAgent( HttpServletRequest request ) {
 	        String nom = getValeurChamp( request, CHAMP_NOM );
 	        String prenom = getValeurChamp( request, CHAMP_PRENOM );
-	        String adresse = getValeurChamp( request, CHAMP_ADRESSE );
-	        String telephone = getValeurChamp( request, CHAMP_TELEPHONE );
+	        String pwdAgent = getValeurChamp( request, CHAMP_PWDAGENT );
+	        String codeAgent = getValeurChamp( request, CHAMP_CODEAGENT );
+	        String codeAgence = getValeurChamp( request, CHAMP_CODEAGENCE );
 	        String email = getValeurChamp( request, CHAMP_EMAIL );
 
 	        Agent agent = new Agent();
@@ -49,19 +52,27 @@ public class FormulaireCreationAgent
 	        agent.setPrenom( prenom );
 
 	        try {
-	            validationAdresse( adresse );
+	            validationPassword( pwdAgent );
 	        } catch ( Exception e ) {
-	            setErreur( CHAMP_ADRESSE, e.getMessage() );
+	            setErreur( CHAMP_PWDAGENT, e.getMessage() );
 	        }
-	        agent.setAdresse( adresse );
+	        agent.setPwdAgent( pwdAgent );
 
 	        try {
-	            validationTelephone( telephone );
+	            validationCodeAgent( codeAgent );
 	        } catch ( Exception e ) {
-	            setErreur( CHAMP_TELEPHONE, e.getMessage() );
+	            setErreur( CHAMP_CODEAGENT, e.getMessage() );
 	        }
-	        agent.setTelephone( telephone );
-
+	        agent.setCodeAgent( codeAgent );
+	        
+	        try {
+	            validationCodeAgence( codeAgence );
+	        } catch ( Exception e ) {
+	            setErreur( CHAMP_CODEAGENCE, e.getMessage() );
+	        }
+	        agent.setCodeAgence( codeAgence );
+	        
+	                
 	        try {
 	            validationEmail( email );
 	        } catch ( Exception e ) {
@@ -94,28 +105,42 @@ public class FormulaireCreationAgent
 	        }
 	    }
 
-	    private void validationAdresse( String adresse ) throws Exception {
-	        if ( adresse != null ) {
-	            if ( adresse.length() < 10 ) {
-	                throw new Exception( "L'adresse de livraison doit contenir au moins 10 caractères." );
+	    private void validationPassword( String pwdAgent ) throws Exception {
+	        if ( pwdAgent != null ) {
+	        	 if ( !pwdAgent.matches( "^\\d+$" ) ) {
+		                throw new Exception( "Le mot de passe ne doit pas contenir les caracteres :  ^\\d+$." );
+		         } else if ( pwdAgent.length() < 8 && pwdAgent.length() > 50) {
+	                throw new Exception( "Le mot de passe doit contenir minimum 8 caractères et maximum 50 caracteres." );
 	            }
 	        } else {
-	            throw new Exception( "Merci d'entrer une adresse de livraison." );
+	            throw new Exception( "Merci d'entrer un mot de passe valide." );
 	        }
 	    }
 
-	    private void validationTelephone( String telephone ) throws Exception {
-	        if ( telephone != null ) {
-	            if ( !telephone.matches( "^\\d+$" ) ) {
-	                throw new Exception( "Le numéro de téléphone doit uniquement contenir des chiffres." );
-	            } else if ( telephone.length() < 4 ) {
-	                throw new Exception( "Le numéro de téléphone doit contenir au moins 4 chiffres." );
+	    private void validationCodeAgent( String codeAgent ) throws Exception {
+	        if ( codeAgent != null ) {
+	            if ( !codeAgent.matches( "^\\d+$" ) ) {
+	                throw new Exception( "Le code de l'agent ne doit pas contenir les caracteres : ^\\d+$." );
+	            } else if ( codeAgent.length() != 8  ) {
+	                throw new Exception( "Le code de l'agent doit contenir  8 chiffres." );
 	            }
 	        } else {
-	            throw new Exception( "Merci d'entrer un numéro de téléphone." );
+	            throw new Exception( "Merci d'entrer un code agent valide." );
 	        }
 	    }
-
+	    
+	    private void validationCodeAgence( String codeAgence ) throws Exception {
+	        if ( codeAgence != null ) {
+	            if ( !codeAgence.matches( "^\\d+$" ) ) {
+	                throw new Exception( "Le code de l'agence ne doit pas contenir les caracteres : ^\\d+$." );
+	            } else if ( codeAgence.length() < 4  ) {
+	                throw new Exception( "Le code de l'agence doit contenir  au moins 4 caracteres." );
+	            }
+	        } else {
+	            throw new Exception( "Merci d'entrer un code agence valide." );
+	        }
+	    }
+	    
 	    private void validationEmail( String email ) throws Exception {
 	        if ( email != null && !email.matches( "([^.@]+)(\\.[^.@]+)*@([^.@]+\\.)+([^.@]+)" ) ) {
 	            throw new Exception( "Merci de saisir une adresse mail valide." );

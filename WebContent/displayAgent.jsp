@@ -13,8 +13,10 @@
             <p class="info">${ form.resultat }</p>
             <p>Nom : <c:out value="${ agent.nom }"/></p>
             <p>Prénom : <c:out value="${ agent.prenom }"/></p>
-            <p>Adresse : <c:out value="${ agent.adresse }"/></p>
-            <p>Numéro de téléphone : <c:out value="${ agent.telephone }"/></p>
+            <p>Mot de passe : <c:out value="${ agent.pwdAgent }"/></p>
+            <p>Code Agent : <c:out value="${ agent.codeAgent }"/></p>
+            <p>Code Agence : <c:out value="${ agent.codeAgence }"/></p>
+            <p>Fonction Agent : <c:out value="${ agent.typeAgent }"/></p>
             <p>Email : <c:out value="${ agent.email }"/></p>
         </div>
     </body>

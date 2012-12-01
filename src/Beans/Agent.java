@@ -3,8 +3,10 @@ package Beans;
 public class Agent {
 	    private String nom;
 	    private String prenom;
-	    private String adresse;
-	    private String telephone;
+	    private String codeAgent;
+	    private String pwdAgent;
+	    private String codeAgence;
+	    private String typeAgent;
 	    private String email;
 
 	    public void setNom( String nom ) {
@@ -23,23 +25,39 @@ public class Agent {
 	        return prenom;
 	    }
 
-	    public void setAdresse( String adresse ) {
-	        this.adresse = adresse;
-	    }
+	    public String getCodeAgent() {
+			return codeAgent;
+		}
 
-	    public String getAdresse() {
-	        return adresse;
-	    }
+		public void setCodeAgent(String codeAgent) {
+			this.codeAgent = codeAgent;
+		}
 
-	    public String getTelephone() {
-	        return telephone;
-	    }
+		public String getPwdAgent() {
+			return pwdAgent;
+		}
 
-	    public void setTelephone( String telephone ) {
-	        this.telephone = telephone;
-	    }
+		public void setPwdAgent(String pwdAgent) {
+			this.pwdAgent = pwdAgent;
+		}
 
-	    public void setEmail( String email ) {
+		public String getCodeAgence() {
+			return codeAgence;
+		}
+
+		public void setCodeAgence(String codeAgence) {
+			this.codeAgence = codeAgence;
+		}
+
+		public String getTypeAgent() {
+			return typeAgent;
+		}
+
+		public void setTypeAgent(String typeAgent) {
+			this.typeAgent = typeAgent;
+		}
+
+		public void setEmail( String email ) {
 	        this.email = email;
 	    }
 

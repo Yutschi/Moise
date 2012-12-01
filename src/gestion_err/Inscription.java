@@ -28,15 +28,17 @@ public class Inscription extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		 String nom = request.getParameter( "nomAgent" );
+	 String nom = request.getParameter( "nomAgent" );
      String prenom = request.getParameter( "prenomAgent" );
-     String adresse = request.getParameter( "adresseAgent" );
-     String telephone = request.getParameter( "telephoneAgent" );
+     String pwdAgent = request.getParameter( "pwdAgent" );
+     String codeAgence = request.getParameter( "codeAgence" );
+     String codeAgent = request.getParameter( "codeAgent" );
+     String typeAgent = request.getParameter( "typeAgent" );
      String email = request.getParameter( "emailAgent" );
 
      String message;
      
-     if ( nom.isEmpty() || adresse.isEmpty() || telephone.isEmpty() ) {
+     if ( nom.isEmpty() || pwdAgent.isEmpty() || typeAgent.isEmpty() || codeAgent.isEmpty() || codeAgence.isEmpty() || email.isEmpty()) {
          message = "Erreur - Vous n'avez pas rempli tous les champs obligatoires. <br> <a href=\"creerAgent.jsp\">Cliquez ici</a> pour accéder au formulaire de création d'un client.";
      } else {
          message = "Agent créé avec succès !";
@@ -45,12 +47,14 @@ public class Inscription extends HttpServlet {
      Agent agent = new Agent();
      agent.setNom( nom );
      agent.setPrenom( prenom );
-     agent.setAdresse( adresse );
-     agent.setTelephone( telephone );
+     agent.setPwdAgent( pwdAgent );
+     agent.setCodeAgent( codeAgent );
+     agent.setCodeAgence( codeAgence );
+     agent.setTypeAgent( typeAgent );
      agent.setEmail( email );
      request.setAttribute( "agent", agent );
      request.setAttribute( "message", message );
-     this.getServletContext().getRequestDispatcher( "/afficherAgent.jsp" ).forward( request, response );
+     this.getServletContext().getRequestDispatcher( "/displayAgent.jsp" ).forward( request, response );
 	}
 
 	/**
